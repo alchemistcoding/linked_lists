@@ -1,28 +1,38 @@
 class LinkedList
   attr_reader :list
-  @@size = 0
+  
   def initialize(value = nil)
-    @list = Node.new(value)
+    if value == nil
+      @list = nil
+      @size = 0
+    else 
+      @list = Node.new(value)
+      @size = 1
+    end
     @tail = @list
   end
 
   def append(value)
-    @list = Node.new(value) unless @list
+    if @list == nil
+      @list = Node.new(value)
+      @tail = @list
+      return
+    end
     @tail.next_node = Node.new(value)
     @tail = @tail.next_node
-    @@size += 1
+    @size += 1
   end
 
   def prepend(value)
     new_node = Node.new(value)
     new_node.next_node = @list
     @list = new_node
-    @@size -= 1
-    @@size = 1 if @@size < 0
+    @size -= 1
+    @size = 1 if @size < 0
   end
 
   def size
-    @@size
+    @size
   end
 
   def head
@@ -92,3 +102,4 @@ class Node
     @next_node = next_node
   end
 end
+
