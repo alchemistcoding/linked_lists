@@ -1,6 +1,6 @@
 class LinkedList
   attr_reader :list
-
+  @@size = 0
   def initialize(value = nil)
     @list = Node.new(value)
     @tail = @list
@@ -10,23 +10,19 @@ class LinkedList
     @list = Node.new(value) unless @list
     @tail.next_node = Node.new(value)
     @tail = @tail.next_node
+    @@size += 1
   end
 
   def prepend(value)
     new_node = Node.new(value)
     new_node.next_node = @list
     @list = new_node
+    @@size -= 1
+    @@size = 1 if @@size < 0
   end
 
   def size
-    current = @list
-    count = 0
-    until current == nil
-      current = current.next_node
-      count += 1
-    end
-
-    count
+    @@size
   end
 
   def head
