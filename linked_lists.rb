@@ -61,6 +61,8 @@ class LinkedList
     return nil unless @list
     value = @list.value
     @list = @list.next_node
+    @size -= @size
+    @size = 0 if @size < 0
     value
   end
 
